@@ -17,26 +17,7 @@ model User {
   address     String
   phoneNumber String
   email       String    @unique
-  products    Product[] // Relation to products purchased by the user
-  carts       Cart[]    // Relation to carts created by the user
-}
-
-// Define the Product model
-model Product {
-  id          Int       @id @default(autoincrement())
-  name        String
-  price       Float
-  purchasedBy User[]    // Relation to users who purchased this product
-  carts       Cart[]    // Relation to carts containing this product
-}
-
-// Define the Cart model
-model Cart {
-  id          Int       @id @default(autoincrement())
-  user        User?     // Relation to user who created this cart
-  products    Product[] // Relation to products in this cart
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  // Adding a unique constraint to ensure only one cart per user
-  @@unique([user])
+  products    Int[]
+  carts       Int[]
+  wishlist    Int[]
 }
