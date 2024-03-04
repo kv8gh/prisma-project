@@ -87,9 +87,9 @@ export default function Navbar() {
         </form>
         <div className="flex items-center space-x-6">
           <Tooltip text="Login">
-            <button className="text-gray-800 hover:text-blue-500 focus:outline-none">
+            <Link href={'/login'} className="text-gray-800 hover:text-blue-500 focus:outline-none">
               <FaUser size={24} />
-            </button>
+            </Link>
           </Tooltip>
           <Tooltip text="Wishlist">
             <Link
