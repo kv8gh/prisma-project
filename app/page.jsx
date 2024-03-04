@@ -12,6 +12,11 @@
 //   console.log(name);
 //   return name;
 // }
+// async function getName(){
+//   const name = await  prisma.User.findMany();
+//   console.log(name);
+//   return name;
+// }
 
 // async function getPosts(){
 //   const posts = await prisma.post.findMany({
@@ -75,6 +80,7 @@
 
 
 import Navbar from "./components/navbar"
+import Card from "./components/card"
 
 async function products(){
   const product = await  fetch('http://fakestoreapi.com/products');
@@ -90,8 +96,31 @@ export default async function Home(){
   const cardData = await products();
   return(
     <main>
-      
       <Navbar />
+      <section>
+      {
+        
+        <div className="grid gap-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
+        {
+          cardData.map((item,index)=>{
+            return(
+              <Card 
+              key={index}
+              id={item.id}
+              title={item.title}
+              price={item.price}
+              description={item.description}
+              category={item.category}
+              image={item.image}
+              rating={item.rating}
+              />
+            )
+          })
+        }
+        </div>
+
+      }
+      </section>
     </main>
   )
 }
