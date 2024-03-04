@@ -85,11 +85,21 @@ import Card from "./components/card"
 async function products(){
   const product = await  fetch('http://fakestoreapi.com/products');
   if(!product) {
-    console.log('error');
+    console.log('product error','error');
     return;
   }
   let data=await product.json();
   return data;
+}
+
+async function getCategory(){
+  const  category = await fetch("https://fakestoreapi.com/products/categories");
+  const catData = await category.json();
+  if(!catData){
+    console.log('category error','error');
+    return;
+  }
+  return  catData;
 }
 
 export default async function Home(){
