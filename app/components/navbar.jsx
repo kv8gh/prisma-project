@@ -39,7 +39,7 @@ export default function Navbar(){
         router.push(`/products/${searchQuery}`);
     };
     return(
-        <main className="h-[100vh] w-full">
+        <main className=" w-full">
             <nav className="flex justify-evenly items-center h-1/6">
                 <Link href="/" className="hover:text-blue-500">Home</Link>
                 <div className="relative group">
