@@ -1,12 +1,16 @@
 'use client'
 import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigaton";
 
 export default function addPost(){
     const [name, setName] = useState('');
     const [id, setId] = useState('');
+    const router = useRouter();
   
     const handleSubmit = async(e) => {
       e.preventDefault();
+
       try {
           const response = await fetch('/api/newpost', {
               method: 'POST',
@@ -22,6 +26,7 @@ export default function addPost(){
   
           const data = await response.json();
           console.log(data); // Log the response data
+          router.refresh()
       } catch (err) {
           console.error(err);
       }
@@ -30,6 +35,7 @@ export default function addPost(){
 
     return(
         <div className="min-h-screen flex items-center justify-center bg-black">
+        <Link href={'/'}>HOME</Link>
       <div className="bg-white p-8 rounded shadow-md">
         <h2 className="text-2xl mb-4">Enter Name and ID</h2>
         <form onSubmit={handleSubmit}>
