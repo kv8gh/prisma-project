@@ -20,7 +20,7 @@ model User {
   password    String
   products    ProductQuantity[]
   carts       ProductQuantity[]
-  wishlist    ProductQuantity[]
+  wishlist    Int[]
 }
 
 model ProductQuantity {
