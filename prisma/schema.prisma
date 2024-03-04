@@ -17,7 +17,12 @@ model User {
   address     String
   phoneNumber String
   email       String    @unique
-  products    Int[]
-  carts       Int[]
-  wishlist    Int[]
+  products    ProductQuantity[]
+  carts       ProductQuantity[]
+  wishlist    ProductQuantity[]
+}
+
+model ProductQuantity {
+  id       Int     
+  quantity Int    
 }
