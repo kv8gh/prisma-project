@@ -1,48 +1,42 @@
-// Define the User model for storing user information
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+// Define the User model
 model User {
-  id          Int      @id @default(autoincrement())
-  username    String   @unique
-  email       String   @unique
-  password    String
-  phoneNumber String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  // Define a relation to the Order model
-  orders      Order[]
+  id          Int       @id @default(autoincrement())
+  userName    String
+  address     String
+  phoneNumber String
+  email       String    @unique
+  products    Product[] // Relation to products purchased by the user
+  carts       Cart[]    // Relation to carts created by the user
 }
 
-// Define the Product model for storing product information
+// Define the Product model
 model Product {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   name        String
-  description String
   price       Float
-  imageUrl    String
-  // Define a relation to the OrderItem model
-  orderItems  OrderItem[]
+  purchasedBy User[]    // Relation to users who purchased this product
+  carts       Cart[]    // Relation to carts containing this product
 }
 
-// Define the Order model for storing order information
-model Order {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  total     Float
-  status    String
-  // Define a relation to the User model
-  user      User      @relation(fields: [userId], references: [id])
-  userId    Int
-  // Define a relation to the OrderItem model
-  orderItems OrderItem[]
-}
-
-// Define the OrderItem model for storing order item information
-model OrderItem {
-  id        Int     @id @default(autoincrement())
-  quantity  Int
-  // Define a relation to the Order model
-  order     Order   @relation(fields: [orderId], references: [id])
-  orderId   Int
-  // Define a relation to the Product model
-  product   Product @relation(fields: [productId], references: [id])
-  productId Int
+// Define the Cart model
+model Cart {
+  id          Int       @id @default(autoincrement())
+  user        User?     // Relation to user who created this cart
+  products    Product[] // Relation to products in this cart
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  // Adding a unique constraint to ensure only one cart per user
+  @@unique([user])
 }
