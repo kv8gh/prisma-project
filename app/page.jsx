@@ -76,9 +76,21 @@
 
 import Navbar from "./components/navbar"
 
-export default function Home(){
+async function products(){
+  const product = await  fetch('http://fakestoreapi.com/products');
+  if(!product) {
+    console.log('error');
+    return;
+  }
+  let data=await product.json();
+  return data;
+}
+
+export default async function Home(){
+  const cardData = await products();
   return(
     <main>
+      
       <Navbar />
     </main>
   )
