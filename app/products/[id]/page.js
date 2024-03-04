@@ -1,6 +1,6 @@
 export default function page({params}){
     var newId = params.id
-    console.log(newId);
+    console.log(typeof newId);
     return(
         <main>
             {newId}
