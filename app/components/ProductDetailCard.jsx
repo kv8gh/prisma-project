@@ -1,8 +1,16 @@
 "use client"
 import React from "react";
+import { useRouter } from "next/navigation";
 
 export default function ProductDetailCard(props) {
-
+  function handleBuy(){
+    console.log("buying product: ", props.product);
+    // send to server for purchase, then redirect to success page or error page if failed
+    
+    
+    }
+    
+    const router = useRouter();
     const { id, title, price, description, category, image, rating } = props;
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-100">
@@ -43,7 +51,7 @@ export default function ProductDetailCard(props) {
               </button>
             </div>
             <div className="flex-auto flex space-x-4">
-              <button className="h-10 px-6 font-semibold rounded-md border border-balck-800 text-gray-900" type="button">
+              <button onClick={handleBuy} className="h-10 px-6 font-semibold rounded-md border border-balck-800 text-gray-900" type="button">
                 Buy
               </button>
             </div>

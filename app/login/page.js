@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -11,12 +12,14 @@ export default function LoginPage() {
   const [address, setAddress] = useState("");
   const [isSignUp, setIsSignUp] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
 
   const handleSignIn = (e) => {
+    router.refresh();
     e.preventDefault();
     // Add sign-in logic here
   };
@@ -25,7 +28,7 @@ export default function LoginPage() {
     e.preventDefault();
     if (!username || !password || !email || !phone || !address) return;
     try {
-        const response = await fetch('/api/newpost', {
+        const response = await fetch('/api/sendLogin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -39,7 +42,7 @@ export default function LoginPage() {
 
         const data = await response.json();
         console.log(data); // Log the response data
-        router.refresh()
+        // router.refresh();
     } catch (err) {
         console.error(err);
     }
