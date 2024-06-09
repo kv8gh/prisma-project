@@ -1,9 +1,9 @@
 'use client'
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigaton";
+import { useRouter } from "next/navigation";
 
-export default function addPost(){
+export default function Addpost(){
     const [name, setName] = useState('');
     const [id, setId] = useState('');
     const router = useRouter();
